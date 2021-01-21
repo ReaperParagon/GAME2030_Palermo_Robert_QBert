@@ -2,19 +2,19 @@
 #
 # Get latest from https://github.com/github/gitignore/blob/master/Unity.gitignore
 #
-/[Ll]ibrary/
-/[Tt]emp/
-/[Oo]bj/
-/[Bb]uild/
-/[Bb]uilds/
-/[Ll]ogs/
-/[Mm]emoryCaptures/
+/GAME2030_Palermo_Robert_QBert/[Ll]ibrary/
+/GAME2030_Palermo_Robert_QBert/[Tt]emp/
+/GAME2030_Palermo_Robert_QBert/[Oo]bj/
+/GAME2030_Palermo_Robert_QBert/[Bb]uild/
+/GAME2030_Palermo_Robert_QBert/[Bb]uilds/
+/GAME2030_Palermo_Robert_QBert/[Ll]ogs/
+/GAME2030_Palermo_Robert_QBert/[Mm]emoryCaptures/
 
 # Never ignore Asset meta data
-!/[Aa]ssets/**/*.meta
+!/GAME2030_Palermo_Robert_QBert/[Aa]ssets/**/*.meta
 
 # Uncomment this line if you wish to ignore the asset store tools plugin
-# /[Aa]ssets/AssetStoreTools*
+# GAME2030_Palermo_Robert_QBert//[Aa]ssets/AssetStoreTools*
 
 # TextMesh Pro files
 [Aa]ssets/TextMesh*Pro/

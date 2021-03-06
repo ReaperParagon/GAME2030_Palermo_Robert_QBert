@@ -7,6 +7,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private GameObject m_Player;
 
+    [SerializeField]
+    private MovementBehaviour m_movement;
+
     private bool m_bIsAlive = true;
 
     [SerializeField]
@@ -24,6 +27,13 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         HandleInput();
+
+        // Handle Activating The current Node
+        if(m_movement.CheckCompleted() && !m_currentNode.bIsActivated)
+        {
+            m_currentNode.bIsActivated = true;
+            m_currentNode.ChangeSprite();
+        }
     }
 
     void HandleInput()
@@ -47,6 +57,11 @@ public class PlayerController : MonoBehaviour
         {
             MoveTo(m_currentNode.m_BotRight);
         }
+
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            Application.Quit();
+        }
     }
 
     void MoveTo(PyramidNode dest)
@@ -54,14 +69,19 @@ public class PlayerController : MonoBehaviour
         // CHANGE FOR DEATH STATE AND ELEVATORS
         if(dest != null)
         {
-            m_Player.transform.position = dest.m_Position;
-            m_currentNode = dest;
-
-            // Activate the Node
-            if(!m_currentNode.bIsActivated)
+            if(m_movement.bPathRunning == false)
             {
-                m_currentNode.bIsActivated = true;
-                // m_currentNode.ChangeSprite();
+                // Set Movement Path Points
+                m_movement.path[0] = m_currentNode.m_Position;
+                m_movement.path[1] = m_currentNode.m_Position + new Vector3(0.0f, 0.6f, 0.0f);
+                m_movement.path[2] = dest.m_Position + new Vector3(0.0f, 0.6f, 0.0f);
+                m_movement.path[3] = dest.m_Position;
+
+                // Run Movement Script
+                m_movement.bPathStart = true;
+
+                // m_Player.transform.position = dest.m_Position;
+                m_currentNode = dest;
             }
         }
         else

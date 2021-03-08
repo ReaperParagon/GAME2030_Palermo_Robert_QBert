@@ -18,6 +18,16 @@ public class PyramidNode : MonoBehaviour
     public PyramidNode m_BotRight = null;
     public PyramidNode m_BotLeft  = null;
 
+    enum NODE_TYPE
+    {
+        DEFAULT = 0,
+        VOID = 1,
+        ELEVATOR = 2
+    }
+
+    public int m_iIndex;
+    public int m_nodeType = 0;
+
     private void Start()
     {
         m_Position = transform.position;

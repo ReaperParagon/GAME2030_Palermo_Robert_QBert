@@ -14,13 +14,15 @@ public class MovementBehaviour : MonoBehaviour
 
     private Vector3 vPosition;
 
-    private float fSpeedFactor;
+    public float fSpeedFactor;
 
     private void Start()
     {
         bPathRunning = false;
         fTime = 0.0f;
-        fSpeedFactor = 1.0f;
+        fSpeedFactor = 2.0f;
+
+        path = new Vector3[4];
 
         for (int i = 0; i < 4; i++)
         {
@@ -76,6 +78,14 @@ public class MovementBehaviour : MonoBehaviour
         }
 
         return false;
+    }
+
+    public void SetPath(Vector3[] newPath)
+    {
+        path[0] = newPath[0];
+        path[1] = newPath[1];
+        path[2] = newPath[2];
+        path[3] = newPath[3];
     }
 
     /*

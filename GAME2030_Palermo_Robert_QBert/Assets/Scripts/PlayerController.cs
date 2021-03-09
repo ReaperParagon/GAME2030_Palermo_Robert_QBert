@@ -10,6 +10,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     public MovementBehaviour m_movement;
 
+    [SerializeField]
+    private PauseMenuBehaviour m_pauseMenuBehaviour;
+
     private bool m_bIsAlive = true;
 
     [SerializeField]
@@ -47,7 +50,7 @@ public class PlayerController : MonoBehaviour
 
     void HandleInput()
     {
-        if(m_bAllowMovement)
+        if(m_bAllowMovement && !m_pauseMenuBehaviour.m_paused)
         {
             if (Input.GetKeyDown(KeyCode.Q) || Input.GetKeyDown(KeyCode.Keypad7))
             {
@@ -72,7 +75,14 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            Application.Quit();
+            if(m_pauseMenuBehaviour.m_paused)
+            {
+                m_pauseMenuBehaviour.Resume();
+            }
+            else
+            {
+                m_pauseMenuBehaviour.ShowPauseMenu();
+            }
         }
     }
 

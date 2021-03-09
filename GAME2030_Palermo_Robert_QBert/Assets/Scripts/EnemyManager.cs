@@ -56,11 +56,11 @@ public class EnemyManager : MonoBehaviour
         float range = Random.Range(0.0f, 1.0f);
         int enemyToSpawn = 0;
 
-        if(range > 0.2f && range <= 0.7f)
+        if(range > 0.3f && range <= 0.8f)
         {
             enemyToSpawn = 1;
         }
-        else if(range > 0.7f)
+        else if(range > 0.8f)
         {
             enemyToSpawn = 2;
         }

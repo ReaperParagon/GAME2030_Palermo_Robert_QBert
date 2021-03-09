@@ -5,6 +5,12 @@ using UnityEngine.SceneManagement;
 
 public class SceneSwitching : MonoBehaviour
 {
+    [SerializeField]
+    private GameObject m_MainMenu;
+
+    [SerializeField]
+    private GameObject m_Leaderboard;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -25,5 +31,17 @@ public class SceneSwitching : MonoBehaviour
     public void ExitGame()
     {
         Application.Quit();
+    }
+
+    public void DisplayLeaderboard()
+    {
+        m_Leaderboard.SetActive(true);
+        m_MainMenu.SetActive(false);
+    }
+
+    public void DisplayMainMenu()
+    {
+        m_Leaderboard.SetActive(false);
+        m_MainMenu.SetActive(true);
     }
 }

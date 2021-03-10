@@ -36,7 +36,7 @@ public class EnemyManager : MonoBehaviour
         {
             // Timer is done
             // Change next spawn time
-            m_fTimer = Random.Range(3.0f, 7.0f);
+            m_fTimer = Random.Range(3.0f, 5.0f);
 
             // Reset current spawn timer
             m_fTimerCurrent = 0.0f;
@@ -56,7 +56,7 @@ public class EnemyManager : MonoBehaviour
         float range = Random.Range(0.0f, 1.0f);
         int enemyToSpawn = 0;
 
-        if(range > 0.3f && range <= 0.8f)
+        if(range > 0.4f && range <= 0.8f)
         {
             enemyToSpawn = 1;
         }

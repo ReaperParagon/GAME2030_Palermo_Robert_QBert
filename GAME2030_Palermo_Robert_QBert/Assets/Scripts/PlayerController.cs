@@ -112,7 +112,14 @@ public class PlayerController : MonoBehaviour
         // CHANGE FOR DEATH STATE AND ELEVATORS
         if(dest != null)
         {
-            if(m_movement.bPathRunning == false)
+            if(dest.m_nodeType == 1)
+            {
+                // Void node, fall off level
+                m_bIsAlive = false;
+                m_currentNode = m_Pyramid.Nodes[0];
+                m_Player.transform.position = m_currentNode.m_Position;
+            }
+            else if(m_movement.bPathRunning == false)
             {
                 // Set Movement Path Points
                 Vector3[] newPath = new Vector3[4];

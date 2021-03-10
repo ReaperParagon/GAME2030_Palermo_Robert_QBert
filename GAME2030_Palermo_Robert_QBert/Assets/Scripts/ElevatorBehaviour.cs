@@ -29,6 +29,11 @@ public class ElevatorBehaviour : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(m_currentNode.m_nodeType != 2 && !m_Started)
+        {
+            m_currentNode.m_nodeType = 2;
+        }
+
         if(!m_Started && m_player.m_currentNode == m_currentNode)
         {
             m_Started = true;

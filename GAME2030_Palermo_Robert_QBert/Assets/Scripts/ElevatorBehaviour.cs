@@ -38,7 +38,7 @@ public class ElevatorBehaviour : MonoBehaviour
         if(m_movement.bPathRunning)
         {
             m_player.m_bAllowMovement = false;
-            m_player.transform.position = transform.position + new Vector3(0.0f, 0.2f, 0.0f);
+            m_player.transform.position = transform.position + new Vector3(0.0f, 0.4f, 0.0f);
         }
         else
         {
@@ -51,8 +51,8 @@ public class ElevatorBehaviour : MonoBehaviour
 
             Vector3[] newPath = new Vector3[4];
 
-            newPath[0] = m_Pyramid.Nodes[0].m_Position + new Vector3(0.0f, 0.5f, 0.0f);
-            newPath[1] = m_Pyramid.Nodes[0].m_Position + new Vector3(0.0f, 1.0f, 0.0f);
+            newPath[0] = transform.position + new Vector3(0.0f, 0.5f, 0.0f);
+            newPath[1] = transform.position + new Vector3(0.0f, 1.0f, 0.0f);
             newPath[2] = m_Pyramid.Nodes[0].m_Position + new Vector3(0.0f, 0.5f, 0.0f);
             newPath[3] = m_Pyramid.Nodes[0].m_Position;
 

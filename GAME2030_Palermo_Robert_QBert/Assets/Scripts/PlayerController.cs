@@ -13,6 +13,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private PauseMenuBehaviour m_pauseMenuBehaviour;
 
+    [SerializeField]
+    private Animator m_animator;
+
     private bool m_bIsAlive = true;
 
     [SerializeField]
@@ -22,17 +25,21 @@ public class PlayerController : MonoBehaviour
     public PyramidNode m_destNode;
 
     public bool m_bAllowMovement = true;
+    private bool m_bBack = false;
 
     // Start is called before the first frame update
     void Start()
     {
         m_currentNode = m_Pyramid.Nodes[0];
+        m_animator = GetComponent<Animator>();
     }
 
     // Update is called once per frame
     void Update()
     {
         HandleInput();
+
+        UpdateAnimations();
 
         // Handle Activating The current Node
         if(m_movement.CheckCompleted())
@@ -48,6 +55,12 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    void UpdateAnimations()
+    {
+        m_animator.SetBool("Pathing", m_movement.bPathRunning);
+        m_animator.SetBool("Back", m_bBack);
+    }
+
     void HandleInput()
     {
         if(m_bAllowMovement && !m_pauseMenuBehaviour.m_paused)
@@ -55,21 +68,29 @@ public class PlayerController : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.Q) || Input.GetKeyDown(KeyCode.Keypad7))
             {
                 MoveTo(m_currentNode.m_TopLeft);
+                GetComponent<SpriteRenderer>().flipX = false;
+                m_bBack = true;
             }
 
             if (Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.Keypad9))
             {
                 MoveTo(m_currentNode.m_TopRight);
+                GetComponent<SpriteRenderer>().flipX = true;
+                m_bBack = true;
             }
 
             if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.Keypad1))
             {
                 MoveTo(m_currentNode.m_BotLeft);
+                GetComponent<SpriteRenderer>().flipX = false;
+                m_bBack = false;
             }
 
             if (Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.Keypad3))
             {
                 MoveTo(m_currentNode.m_BotRight);
+                GetComponent<SpriteRenderer>().flipX = true;
+                m_bBack = false;
             }
         }
 

@@ -10,17 +10,23 @@ public class GreenBallBehaviour : MonoBehaviour
     [SerializeField]
     private PyramidGraph m_Pyramid;
 
+    [SerializeField]
+    private Animator m_animator;
+
     private PyramidNode m_currentNode;
     private PyramidNode m_destNode;
 
     private float m_fMoveTimer;
     private float m_fMoveTimerCurrent;
 
+    private bool m_bAlive = true;
+
     // Start is called before the first frame update
     void Start()
     {
         m_movement = GetComponent<MovementBehaviour>();
         m_Pyramid = GameObject.Find("Pyramid").GetComponent<PyramidGraph>();
+        m_animator = GetComponent<Animator>();
 
         m_fMoveTimer = 0.3f;
         m_fMoveTimerCurrent = 0.0f;
@@ -31,8 +37,15 @@ public class GreenBallBehaviour : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        UpdateAnimations();
+
         if (m_movement.CheckCompleted())
         {
+            if (!m_bAlive)
+            {
+                Destroy(gameObject);
+            }
+
             m_currentNode = m_destNode;
         }
 
@@ -56,6 +69,11 @@ public class GreenBallBehaviour : MonoBehaviour
         }
     }
 
+    void UpdateAnimations()
+    {
+        m_animator.SetBool("Pathing", m_movement.bPathRunning);
+    }
+
     void Spawn()
     {
         int spawnSide = Random.Range(0, 2);
@@ -68,7 +86,6 @@ public class GreenBallBehaviour : MonoBehaviour
             Vector3[] newPath = new Vector3[4];
 
             Vector3 spawnPos = m_destNode.m_Position + new Vector3(0.0f, 10.0f, 0.0f);
-            transform.position = spawnPos;
 
             newPath[0] = spawnPos;
             newPath[1] = spawnPos + new Vector3(0.0f, 0.6f, 0.0f);
@@ -85,7 +102,6 @@ public class GreenBallBehaviour : MonoBehaviour
             Vector3[] newPath = new Vector3[4];
 
             Vector3 spawnPos = m_destNode.m_Position + new Vector3(0.0f, 10.0f, 0.0f);
-            transform.position = spawnPos;
 
             newPath[0] = spawnPos;
             newPath[1] = spawnPos + new Vector3(0.0f, 0.6f, 0.0f);
@@ -139,6 +155,24 @@ public class GreenBallBehaviour : MonoBehaviour
     }
     void Death()
     {
-        Destroy(gameObject);
+        // Order in Layer
+        GetComponent<SpriteRenderer>().sortingOrder = -2;
+
+        // Start the path to death
+        Vector3[] newPath = new Vector3[4];
+
+        Vector3 fallOffPos = m_currentNode.m_Position + new Vector3(0.0f, 0.0f, -m_currentNode.m_Position.z + 0.5f);
+
+        newPath[0] = fallOffPos;
+        newPath[1] = fallOffPos;
+        newPath[2] = m_currentNode.m_Position + new Vector3(0.0f, -15.0f, 0.5f);
+        newPath[3] = m_currentNode.m_Position + new Vector3(0.0f, -15.0f, 0.5f);
+
+        m_movement.SetPath(newPath);
+        m_movement.fSpeedFactor = 0.7f;
+
+        // m_destNode = destNode;
+        m_movement.bPathStart = true;
+        m_bAlive = false;
     }
 }

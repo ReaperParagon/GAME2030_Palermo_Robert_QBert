@@ -22,12 +22,15 @@ public class MovementBehaviour : MonoBehaviour
         fTime = 0.0f;
         fSpeedFactor = 2.0f;
 
-        path = new Vector3[4];
-
-        for (int i = 0; i < 4; i++)
+        if(path == null)
         {
-            path[i] = Vector3.zero;
+            path = new Vector3[4];
         }
+
+        //for (int i = 0; i < 4; i++)
+        //{
+        //    path[i] = Vector3.zero;
+        //}
     }
 
     private void Update()
